@@ -57,6 +57,8 @@ const sendMessage = async (channel, time = 15) => {
 const findCurrentBaphomet = async () => {
   const date = new Date();
   const hour = `${date.getHours("fr-FR")}`;
+  console.log(hour);
+  console.log(date.toLocaleString("fr-FR", { weekday: "long" }));
   const baphomet = await Baphomet.findOne({
     date: {
       $elemMatch: { 
