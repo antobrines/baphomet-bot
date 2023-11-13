@@ -56,8 +56,11 @@ const sendMessage = async (channel, time = 15) => {
 
 const findCurrentBaphomet = async () => {
   const date = new Date();
-  const hour = `${date.getHours("fr-FR")}`;
-  console.log(hour);
+  const options = { timeZone: 'Europe/Paris', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+  const formatter = new Intl.DateTimeFormat('fr-FR', options);
+  const timeString = formatter.format(date);
+  const hour = timeString.split(":")[0];
+  console.log(timeString, hour);
   console.log(date.toLocaleString("fr-FR", { weekday: "long" }));
   const baphomet = await Baphomet.findOne({
     date: {
