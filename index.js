@@ -56,7 +56,7 @@ const sendMessage = async (channel, time = 15) => {
 
 const findCurrentBaphomet = async () => {
   const date = new Date();
-  const hour = `${date.getHours()}`;
+  const hour = `${date.getHours("fr-FR")}`;
   const baphomet = await Baphomet.findOne({
     date: {
       $elemMatch: { 
