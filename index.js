@@ -66,7 +66,7 @@ const getHour = () => {
 const findCurrentBaphomet = async () => {
   const date = new Date();
   const hour = getHour();
-  console.log(timeString, hour);
+  console.log(hour);
   console.log(date.toLocaleString("fr-FR", { weekday: "long" }));
   const baphomet = await Baphomet.findOne({
     date: {
