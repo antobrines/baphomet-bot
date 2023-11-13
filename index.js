@@ -10,7 +10,7 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const channelId = "1043524016280973353";
 
 const task1 = cron.schedule(
-  "0 20 21 * * *",
+  "0 52 21 * * *",
   async () => {
     await db();
     const channel = client.channels.cache.get(channelId);
@@ -38,14 +38,14 @@ const sendMessage = async (channel, time = 15) => {
   const day = date.toLocaleString("fr-FR", { weekday: "long" });
   if (baphomet) {
     if (baphomet.date.some((date) => date.day === day)) {
-      const hour = `${date.getHours()}`;
+      const hour = getHour();
       var baphometDate = baphomet.date.find((date) => date.day === day).hour;
       baphometHour = baphometDate.split(":")[0];
       console.log(hour, baphomet);
       if (hour === baphometHour) {
         const attachments = new AttachmentBuilder(baphomet.image);
         channel.send({
-          content: `Le baphomet est à ${baphomet.localisation} dans ${time} minutes (${baphometDate}) ! <@&1058173757069463643>`,
+          content: `Le baphomet est à ${baphomet.localisation} dans ${time} minutes (${baphometDate}) !`,
           files: [attachments],
         });
       }
@@ -54,12 +54,18 @@ const sendMessage = async (channel, time = 15) => {
   return false;
 };
 
-const findCurrentBaphomet = async () => {
+const getHour = () => {
   const date = new Date();
   const options = { timeZone: 'Europe/Paris', hour: '2-digit', minute: '2-digit', second: '2-digit' };
   const formatter = new Intl.DateTimeFormat('fr-FR', options);
   const timeString = formatter.format(date);
   const hour = timeString.split(":")[0];
+  return hour;
+}
+
+const findCurrentBaphomet = async () => {
+  const date = new Date();
+  const hour = getHour();
   console.log(timeString, hour);
   console.log(date.toLocaleString("fr-FR", { weekday: "long" }));
   const baphomet = await Baphomet.findOne({
