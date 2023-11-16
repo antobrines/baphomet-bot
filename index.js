@@ -21,7 +21,7 @@ const task1 = cron.schedule(
 );
 
 const task2 = cron.schedule(
-  "0 25 0 * * *",
+  "0 0 21 * * *",
   async () => {
     console.log("Cron job 2 started");
     await db();
@@ -31,8 +31,19 @@ const task2 = cron.schedule(
   { timezone: "Europe/Paris" }
 );
 
+const task3 = cron.schedule(
+  "0 30 0 * * *",
+  async () => {
+    console.log("Cron job 3 started");
+    await sendMessageWithParams(channel, "N'oubliez pas d'aller chercher votre énergie à la base de la guilde !");
+  },
+  { timezone: "Europe/Paris" }
+);
+
+
 task1.start();
 task2.start();
+task3.start();
 
 const sendMessage = async (channel, time = 15) => {
   const date = new Date();
@@ -47,15 +58,25 @@ const sendMessage = async (channel, time = 15) => {
       if (hour === baphometHour) {
         console.log(`Baphomet hour is ${baphomet.date[0].hour}`);
         const attachments = new AttachmentBuilder(baphomet.image);
+        console.log(`Sending message`);
         channel.send({
           content: `Le baphomet est à ${baphomet.localisation} dans ${time} minutes (${baphometDate}) ! <@&1058173757069463643>`,
           files: [attachments],
         });
+        console.log(`Message sent`);
       }
     }
   }
   return false;
 };
+
+const sendMessageWithParams = async (channel, message) => {
+  console.log(`Sending message with params: ${message}`);
+  await channel.send({
+    content: `${message} <@&1058173757069463643>`,
+  });
+  console.log(`Message sent`);
+}
 
 const getHour = () => {
   const date = new Date();
