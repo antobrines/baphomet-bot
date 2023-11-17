@@ -21,7 +21,7 @@ const task1 = cron.schedule(
 );
 
 const task2 = cron.schedule(
-  "0 30 0 * * *",
+  "0 20 0 * * *",
   async () => {
     console.log("Cron job 2 started");
     await db();
@@ -32,7 +32,7 @@ const task2 = cron.schedule(
 );
 
 const task3 = cron.schedule(
-  "0 0 20 * * *",
+  "0 6 20* * *",
   async () => {
     console.log("Cron job 3 started");
     await sendMessageWithParams(channel, "N'oubliez pas d'aller chercher votre énergie à la base de la guilde !");
