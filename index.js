@@ -32,10 +32,11 @@ const task2 = cron.schedule(
 );
 
 const task3 = cron.schedule(
-  "0 10 20* * *",
+  "0 0 20 * * *",
   async () => {
     console.log("Cron job 3 started");
-    await channel.send("N'oubliez pas d'aller chercher votre énergie à la base de la guilde ! <@&1058173757069463643>")
+    const channel = client.channels.cache.get(channelId);
+    await sendMessageWithParams(channel, "N'oubliez pas d'aller chercher votre énergie à la base de la guilde !");
   },
   { timezone: "Europe/Paris" }
 );
