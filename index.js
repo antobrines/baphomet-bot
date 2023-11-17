@@ -32,10 +32,10 @@ const task2 = cron.schedule(
 );
 
 const task3 = cron.schedule(
-  "0 6 20* * *",
+  "0 10 20* * *",
   async () => {
     console.log("Cron job 3 started");
-    await sendMessageWithParams(channel, "N'oubliez pas d'aller chercher votre énergie à la base de la guilde !");
+    await channel.send("N'oubliez pas d'aller chercher votre énergie à la base de la guilde ! <@&1058173757069463643>")
   },
   { timezone: "Europe/Paris" }
 );
@@ -72,9 +72,8 @@ const sendMessage = async (channel, time = 15) => {
 
 const sendMessageWithParams = async (channel, message) => {
   console.log(`Sending message with params: ${message}`);
-  await channel.send({
-    content: `${message} <@&1058173757069463643>`,
-  });
+  await channel.send(`${message} <@&1058173757069463643>`,
+  );
   console.log(`Message sent`);
 }
 
