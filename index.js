@@ -1,7 +1,6 @@
 const { Client, GatewayIntentBits, AttachmentBuilder } = require("discord.js");
 const cron = require("node-cron");
 const dotenv = require("dotenv");
-const { Baphomet } = require("./baphomet.model");
 const { db } = require("./db");
 const { sendMessage, sendMessageWithParams } = require("./functions");
 dotenv.config();

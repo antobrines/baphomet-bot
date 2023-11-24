@@ -1,3 +1,4 @@
+const { Baphomet } = require("./baphomet.model");
 const sendMessage = async (channel, time = 15) => {
     const date = new Date();
     const baphomet = await findCurrentBaphomet();
