@@ -1,4 +1,4 @@
-const { Client, GatewayIntentBits, AttachmentBuilder } = require("discord.js");
+const { Client, GatewayIntentBits } = require("discord.js");
 const cron = require("node-cron");
 const dotenv = require("dotenv");
 const { db } = require("./db");
@@ -20,7 +20,7 @@ const task1 = cron.schedule(
 );
 
 const task2 = cron.schedule(
-  "0 20 0 * * *",
+  "45 29 0 * * *",
   async () => {
     console.log("Cron baphomet job started 0 20");
     await db();
