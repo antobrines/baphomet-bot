@@ -20,7 +20,7 @@ const task1 = cron.schedule(
 );
 
 const task2 = cron.schedule(
-  "45 29 0 * * *",
+  "0 20 0 * * *",
   async () => {
     console.log("Cron baphomet job started 0 20");
     await db();
