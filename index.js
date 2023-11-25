@@ -1,4 +1,4 @@
-const { Client, GatewayIntentBits } = require("discord.js");
+const { Client, GatewayIntentBits, AttachmentBuilder, EmbedBuilder  } = require("discord.js");
 const { createLogger } = require('./log');
 const cron = require("node-cron");
 const dotenv = require("dotenv");
@@ -37,12 +37,12 @@ const task3 = cron.schedule(
   async () => {
     logger.info("Cron energy job started 20 0");
     const channel = client.channels.cache.get(channelId);
-    var message = 'N\'oubliez pas d\'aller chercher votre énergie à la base de la guilde !';
+    var message = 'N\'oubliez pas d\'aller chercher votre **énergie** à la base de la guilde !';
     const date = new Date();
     const day = date.toLocaleString("fr-FR", { weekday: "long" });
     if (day === "samedi" || day === "dimanche") {
       logger.info("it's weekend so fissure message sent")
-      message = 'N\'oubliez pas d\'aller chercher votre énergie à la base de la guilde et de faire votre fissure du weekend !';
+      message = 'N\'oubliez pas d\'aller chercher votre **énergie** à la base de la guilde et de faire votre **fissure** du weekend !';
     }
     await sendMessageWithParams(channel, message);
   },
@@ -57,7 +57,7 @@ client.login(process.env.DISCORD_TOKEN);
 client.on("ready", async () => {
   await db();
   logger.info(`Logged in as ${client.user.tag} !`);
-  // const user = await client.users.fetch("208696982078881793");
-  // user.send("bot lancé !");
+  const channel = client.channels.cache.get(channelId);
+  sendMessageWithParams(channel, "Nouveau format de message !", false)
   client.user.setActivity("Je suis Coco42");
 });

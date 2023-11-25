@@ -1,4 +1,4 @@
-const { AttachmentBuilder } = require("discord.js");
+const { AttachmentBuilder, EmbedBuilder } = require("discord.js");
 const { Baphomet } = require("./baphomet.model");
 const { createLogger } = require('./log');
 const logger = createLogger('cron');
@@ -15,11 +15,19 @@ const sendMessage = async (channel, time = 15) => {
         baphometHour = baphometDate.split(":")[0];
         if (hour === baphometHour) {
           logger.info(`Baphomet hour is ${baphomet.date[0].hour}`);
-          const attachments = new AttachmentBuilder(baphomet.image);
+          // const attachments = new AttachmentBuilder(baphomet.image);
+          // channel.send({
+          //   content: `Le baphomet est à **${baphomet.localisation}** dans **${time}** minutes (${baphometDate}) ! <@&1058173757069463643>`,
+          //   files: [attachments],
+          // });
           logger.info(`Sending message with params: ${baphomet.localisation} in ${time} minutes (${baphometDate})`);
+          const embed = new EmbedBuilder()
+            .setColor("#0099ff")
+            .setTitle("Baphomet")
+            .setDescription(`Le baphomet est à **${baphomet.localisation}** dans **${time}** minutes (${baphometDate}) ! <@&1058173757069463643>`)
+            .setImage(baphomet.image);
           channel.send({
-            content: `Le baphomet est à ${baphomet.localisation} dans ${time} minutes (${baphometDate}) ! <@&1058173757069463643>`,
-            files: [attachments],
+            embeds: [embed],
           });
           logger.info(`Message sent`);
         }
@@ -28,9 +36,19 @@ const sendMessage = async (channel, time = 15) => {
     return false;
   };
   
-  const sendMessageWithParams = async (channel, message) => {
+  const sendMessageWithParams = async (channel, message, notification = true) => {
     logger.info(`Sending message with params: ${message}`);
-    await channel.send(`${message} <@&1058173757069463643>`);
+    var description = message;
+    if (notification) {
+      description = `${message} <@&1058173757069463643>`;
+    }
+    const embed = new EmbedBuilder()
+      .setColor("#D42500")
+      .setTitle("Notification")
+      .setDescription(description)
+    await channel.send({
+      embeds: [embed],
+    });
     logger.info(`Message sent`);
   }
   
