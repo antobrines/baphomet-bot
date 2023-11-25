@@ -1,25 +1,27 @@
 const { AttachmentBuilder } = require("discord.js");
 const { Baphomet } = require("./baphomet.model");
+const { createLogger } = require('./log');
+const logger = createLogger('cron');
 
 const sendMessage = async (channel, time = 15) => {
     const date = new Date();
     const baphomet = await findCurrentBaphomet();
     const day = date.toLocaleString("fr-FR", { weekday: "long" });
     if (baphomet) {
-      console.log(`Baphomet is: ${baphomet.localisation} at ${baphomet.date[0].hour}`);
+      logger.info(`Baphomet is: ${baphomet.localisation} at ${baphomet.date[0].hour}`);
       if (baphomet.date.some((date) => date.day === day)) {
         const hour = getHour();
         var baphometDate = baphomet.date.find((date) => date.day === day).hour;
         baphometHour = baphometDate.split(":")[0];
         if (hour === baphometHour) {
-          console.log(`Baphomet hour is ${baphomet.date[0].hour}`);
+          logger.info(`Baphomet hour is ${baphomet.date[0].hour}`);
           const attachments = new AttachmentBuilder(baphomet.image);
-          console.log(`Sending message`);
+          logger.info(`Sending message with params: ${baphomet.localisation} in ${time} minutes (${baphometDate})`);
           channel.send({
             content: `Le baphomet est à ${baphomet.localisation} dans ${time} minutes (${baphometDate}) ! <@&1058173757069463643>`,
             files: [attachments],
           });
-          console.log(`Message sent`);
+          logger.info(`Message sent`);
         }
       }
     }
@@ -27,10 +29,9 @@ const sendMessage = async (channel, time = 15) => {
   };
   
   const sendMessageWithParams = async (channel, message) => {
-    console.log(`Sending message with params: ${message}`);
-    await channel.send(`${message} <@&1058173757069463643>`,
-    );
-    console.log(`Message sent`);
+    logger.info(`Sending message with params: ${message}`);
+    await channel.send(`${message} <@&1058173757069463643>`);
+    logger.info(`Message sent`);
   }
   
   const getHour = () => {
@@ -53,7 +54,7 @@ const sendMessage = async (channel, time = 15) => {
         },
       },
     });
-    console.log(`Current baphomet: ${baphomet.localisation} at ${baphomet.date[0].hour}`);
+    logger.info(`Current baphomet: ${baphomet.localisation} at ${baphomet.date[0].hour}`);
     return baphomet;
   };
   
