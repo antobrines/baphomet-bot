@@ -58,6 +58,6 @@ client.on("ready", async () => {
   await db();
   logger.info(`Logged in as ${client.user.tag} !`);
   const channel = client.channels.cache.get(channelId);
-  sendMessageWithParams(channel, "Nouveau format de message !", false)
+  // sendMessageWithParams(channel, "Nouveau format de message !", false)
   client.user.setActivity("Je suis Coco42");
 });

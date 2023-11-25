@@ -1,4 +1,4 @@
-const { AttachmentBuilder, EmbedBuilder } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const { Baphomet } = require("./baphomet.model");
 const { createLogger } = require('./log');
 const logger = createLogger('cron');
@@ -15,11 +15,6 @@ const sendMessage = async (channel, time = 15) => {
         baphometHour = baphometDate.split(":")[0];
         if (hour === baphometHour) {
           logger.info(`Baphomet hour is ${baphomet.date[0].hour}`);
-          // const attachments = new AttachmentBuilder(baphomet.image);
-          // channel.send({
-          //   content: `Le baphomet est à **${baphomet.localisation}** dans **${time}** minutes (${baphometDate}) ! <@&1058173757069463643>`,
-          //   files: [attachments],
-          // });
           logger.info(`Sending message with params: ${baphomet.localisation} in ${time} minutes (${baphometDate})`);
           const embed = new EmbedBuilder()
             .setColor("#0099ff")
