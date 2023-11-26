@@ -13,9 +13,15 @@
   "version": "1.0.0",
   "main": "bot.js",
   "scripts": {
-    "start": "node bot.js"
+    "start": "node bot.js",
+    "prepare": "husky install",
+    "lint": "eslint ."
   },
   "engines": {
     "node": "18.x"
+  },
+  "devDependencies": {
+    "eslint": "^8.54.0",
+    "husky": "^8.0.3"
   }
 }
