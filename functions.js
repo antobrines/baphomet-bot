@@ -20,9 +20,10 @@ const sendMessage = async (channel, time = 15) => {
         const embed = new EmbedBuilder()
           .setColor('#0099ff')
           .setTitle('Baphomet')
-          .setDescription(`Le baphomet est à **${baphomet.localisation}** dans **${time}** minutes (${baphometDate}) ! <@&1058173757069463643>`)
+          .setDescription(`Le baphomet est à **${baphomet.localisation}** dans **${time}** minutes (${baphometDate}) !`)
           .setImage(baphomet.image);
         channel.send({
+          content: '<@&1058173757069463643>',
           embeds: [embed],
         });
         logger.info('Message sent');
@@ -36,7 +37,7 @@ const sendMessageWithParams = async (channel, message, notification = true) => {
   logger.info(`Sending message with params: ${message}`);
   var description = message;
   if (notification) {
-    description = `${message} <@&1058173757069463643>`;
+    description = `${message}`;
   }
   const embed = new EmbedBuilder()
     .setColor('#D42500')
