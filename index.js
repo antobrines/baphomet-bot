@@ -61,4 +61,5 @@ client.on('ready', async () => {
   // const channel = client.channels.cache.get(channelId);
   // sendMessageWithParams(channel, "Nouveau format de message !", false)
   client.user.setActivity('Je suis Coco42');
+  client.user.setUsername('Wyvria Bot');
 });
