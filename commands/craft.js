@@ -33,6 +33,10 @@ exports.data = craftCommand;
 exports.execute = async (interaction) => {
   const item = await interaction.options.getString('item');
   const quantity = await interaction.options.getInteger('quantity') || 1;
+  if (quantity < 1) {
+    await interaction.reply({ content: 'La quantité doit être supérieur à 0', ephemeral: true });
+    return;
+  }
   // eslint-disable-next-line no-undef
   const url = `${process.env.URL_BACK}objects/${item}?nb=${quantity}`;
   const response = await fetch(url);
