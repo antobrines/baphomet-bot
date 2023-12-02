@@ -13,7 +13,8 @@
   "version": "1.0.0",
   "main": "bot.js",
   "scripts": {
-    "start": "node bot.js",
+    "start": "npm run deploy-command && node index.js",
+    "deploy-command": "node ./deploy-commands.js",
     "prepare": "husky install",
     "lint": "eslint ."
   },

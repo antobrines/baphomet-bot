@@ -1,10 +1,13 @@
-const { Client, GatewayIntentBits } = require('discord.js');
+const { Client, GatewayIntentBits, Events } = require('discord.js');
 const { createLogger } = require('./log');
 const cron = require('node-cron');
 const dotenv = require('dotenv');
 const { db } = require('./db');
 const { sendMessage, sendMessageWithParams } = require('./functions');
 dotenv.config();
+
+// commands
+const craft = require('./commands/craft');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const channelId = '1170488834979528745';
@@ -53,13 +56,25 @@ task1.start();
 task2.start();
 task3.start();
 
-// eslint-disable-next-line no-undef
-client.login(process.env.DISCORD_TOKEN);
+
 client.on('ready', async () => {
   await db();
   logger.info(`Logged in as ${client.user.tag} !`);
-  // const channel = client.channels.cache.get(channelId);
-  // sendMessageWithParams(channel, "Nouveau format de message !", false)
   client.user.setActivity('Je suis Coco42');
   client.user.setUsername('Wyvria Bot');
 });
+
+
+const handleInteraction = async (interaction) => {
+  if (!interaction.isCommand()) return;
+
+  const { commandName } = interaction;
+  if (commandName === 'craft') {
+    await craft.execute(interaction);
+  }
+};
+
+client.on(Events.InteractionCreate, handleInteraction);
+
+// eslint-disable-next-line no-undef
+client.login(process.env.DISCORD_TOKEN);
