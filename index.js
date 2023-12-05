@@ -47,6 +47,8 @@ const task3 = cron.schedule(
       logger.info('it\'s weekend so fissure message sent');
       message = 'N\'oubliez pas d\'aller chercher votre **énergie** à la base de la guilde et de faire votre **fissure** du weekend !';
     }
+    // add to it a list of 'Faire 2 quêtes répétitives' 'Fait 3 ...', 'Faire 2 combat arène
+    message += '\n\n**Faire 2 quêtes répétitives**\n**Faire 3 chemins de l\'entraînement**\n**Faire 1 défis quotidien**';
     await sendMessageWithParams(channel, message);
   },
   { timezone: 'Europe/Paris' }
