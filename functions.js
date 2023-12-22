@@ -43,7 +43,6 @@ const sendMessageWithParams = async (channel, message, notification = true) => {
     .setTitle('Notification')
     .setDescription(description);
   await channel.send({
-    content: '<@&1058173757069463643>',
     embeds: [embed],
   });
   logger.info('Message sent');
