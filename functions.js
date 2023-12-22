@@ -23,7 +23,6 @@ const sendMessage = async (channel, time = 15) => {
           .setDescription(`Le baphomet est à **${baphomet.localisation}** dans **${time}** minutes (${baphometDate}) !`)
           .setImage(baphomet.image);
         channel.send({
-          content: '<@&1058173757069463643>',
           embeds: [embed],
         });
         logger.info('Message sent');
